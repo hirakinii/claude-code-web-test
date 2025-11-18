@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ソフトウェア仕様書作成アプリ</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ソフトウェア仕様書作成アプリ</h1>
+            <div class="version-info">
+                <span>バージョン: <span id="currentVersion">1.0.0</span></span>
+                <span>作成日: <span id="createdDate"></span></span>
+            </div>
+        </header>
+
+        <div class="actions">
+            <button id="updateVersionBtn" class="btn btn-primary">バージョンを更新する</button>
+            <button id="exportMarkdownBtn" class="btn btn-secondary">Markdown形式でエクスポート</button>
+            <button id="exportPdfBtn" class="btn btn-secondary">PDF形式でエクスポート</button>
+            <button id="exportWordBtn" class="btn btn-secondary">Word形式でエクスポート</button>
+        </div>
+
+        <form id="specForm">
+            <section class="form-section">
+                <h2>基本情報</h2>
+
+                <div class="form-group">
+                    <label for="subject">件名 <span class="required">*</span></label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="background">調達の背景 <span class="required">*</span></label>
+                    <textarea id="background" name="background" rows="5" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="purpose">調達の目的 <span class="required">*</span></label>
+                    <textarea id="purpose" name="purpose" rows="5" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="deliverables">納品物 <span class="required">*</span></label>
+                    <textarea id="deliverables" name="deliverables" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="deliveryLocation">納品場所 <span class="required">*</span></label>
+                    <input type="text" id="deliveryLocation" name="deliveryLocation" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="deliveryDeadline">納品期限 <span class="required">*</span></label>
+                    <input type="date" id="deliveryDeadline" name="deliveryDeadline" required>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>調達情報</h2>
+
+                <div class="form-group">
+                    <label>調達の種別 <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="procurementType" value="準委任" required>
+                            準委任
+                        </label>
+                        <label>
+                            <input type="radio" name="procurementType" value="委任">
+                            委任
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>調達のスコープ <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" name="procurementScope" value="コンサルティング">
+                            コンサルティング
+                        </label>
+                        <label>
+                            <input type="checkbox" name="procurementScope" value="要件定義支援">
+                            要件定義支援
+                        </label>
+                        <label>
+                            <input type="checkbox" name="procurementScope" value="機能設計">
+                            機能設計
+                        </label>
+                        <label>
+                            <input type="checkbox" name="procurementScope" value="機能開発">
+                            機能開発
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="contractorRequirements">受注者に求められる要件 <span class="required">*</span></label>
+                    <textarea id="contractorRequirements" name="contractorRequirements" rows="6" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="basicRequirements">業務の基本要件 <span class="required">*</span></label>
+                    <textarea id="basicRequirements" name="basicRequirements" rows="6" required></textarea>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>各業務の詳細仕様</h2>
+                <div id="tasksContainer">
+                    <div class="task-item">
+                        <div class="form-group">
+                            <label>業務タイトル <span class="required">*</span></label>
+                            <input type="text" class="task-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>詳細仕様 <span class="required">*</span></label>
+                            <textarea class="task-details" rows="6" required></textarea>
+                        </div>
+                        <button type="button" class="btn btn-danger remove-task" style="display: none;">この業務を削除</button>
+                    </div>
+                </div>
+                <button type="button" id="addTaskBtn" class="btn btn-success">業務を追加</button>
+            </section>
+        </form>
+    </div>
+
+    <!-- ライブラリの読み込み -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.5.0/docx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <!-- アプリケーションのスクリプト -->
+    <script src="js/app.js"></script>
+    <script src="js/export.js"></script>
+</body>
+</html>
